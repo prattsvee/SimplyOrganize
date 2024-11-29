@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\taskapp",
+    "\\taskapp\\taskapp",
+    "\\taskapp\\taskapp\\Data",
+    "\\taskapp\\taskapp\\obj",
+    "\\taskapp\\taskapp\\services"
+  ],
+  "SelectedNode": "\\taskapp\\taskapp\\Data\\ApplicationDbContext.cs",
+  "PreviewInSolutionExplorer": false
+}
