@@ -1,0 +1,22 @@
+.column {
+    background: #f3f4f6;
+    padding: 16px;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 300px;
+    margin-right: 16px;
+  }
+  
+  .columnTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #171a1f;
+    margin-bottom: 16px;
+  }
+  
+  .taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  

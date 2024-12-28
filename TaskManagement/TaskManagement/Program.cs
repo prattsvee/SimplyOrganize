@@ -1,5 +1,6 @@
 using TaskManagement.Data;
 using TaskManagement.Services;
+using TaskManagement.Hubs; // Import the TaskHub
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,14 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllersWithViews();
 
-// Register DbContext (replace "YourDbContext" and "YourConnectionString" with actual values)
+// Register DbContext
 builder.Services.AddDbContext<TaskManagementDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
 // Register services for Dependency Injection
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+
+// Register SignalR services
+builder.Services.AddSignalR();
 
 // Add Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -46,6 +49,10 @@ app.UseSwaggerUI(options =>
 // Configure static assets
 app.UseStaticFiles();
 
+// Map SignalR hub
+app.MapHub<TaskHub>("/taskHub");
+
+// Map Controller routes
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

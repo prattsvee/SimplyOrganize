@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\models\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\models\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\hubs\\taskhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\hubs\\taskhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\models\\project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,16 +39,8 @@
       "RelativeMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\services\\itaskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\services\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\services\\projectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\services\\projectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\models\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|solutionrelative:taskmanagement\\models\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{14100212-6655-4522-99C5-BFE1D5740FF3}|TaskManagement\\TaskManagement.csproj|c:\\users\\prati\\onedrive\\documents\\task\\taskmanagement\\taskmanagement\\services\\iprojectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,25 +66,57 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "TaskService.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Services\\TaskService.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Services\\TaskService.cs",
               "ToolTip": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Services\\TaskService.cs",
               "RelativeToolTip": "TaskManagement\\Services\\TaskService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-28T20:08:10.653Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
+              "Title": "TaskHub.cs",
+              "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Hubs\\TaskHub.cs",
+              "RelativeDocumentMoniker": "TaskManagement\\Hubs\\TaskHub.cs",
+              "ToolTip": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Hubs\\TaskHub.cs",
+              "RelativeToolTip": "TaskManagement\\Hubs\\TaskHub.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA+wBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T23:53:15.525Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "TaskManagement\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\appsettings.Development.json",
+              "RelativeToolTip": "TaskManagement\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-29T23:49:32.789Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "ProjectService.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Services\\ProjectService.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Services\\ProjectService.cs",
@@ -84,38 +124,35 @@
               "RelativeToolTip": "TaskManagement\\Services\\ProjectService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T19:59:15.164Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T19:59:15.164Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Program.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Program.cs",
               "ToolTip": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Program.cs",
               "RelativeToolTip": "TaskManagement\\Program.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAuwBcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T19:16:33.327Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T19:16:33.327Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "Task.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Models\\Task.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Models\\Task.cs",
               "ToolTip": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Models\\Task.cs",
               "RelativeToolTip": "TaskManagement\\Models\\Task.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T18:47:30.037Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T18:47:30.037Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "ITaskService.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Services\\ITaskService.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Services\\ITaskService.cs",
@@ -123,12 +160,11 @@
               "RelativeToolTip": "TaskManagement\\Services\\ITaskService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T19:56:42.05Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T19:56:42.05Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "TaskManagementDbContext.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Data\\TaskManagementDbContext.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Data\\TaskManagementDbContext.cs",
@@ -136,12 +172,11 @@
               "RelativeToolTip": "TaskManagement\\Data\\TaskManagementDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T19:15:01.523Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T19:15:01.523Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "project.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Models\\project.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Models\\project.cs",
@@ -149,12 +184,11 @@
               "RelativeToolTip": "TaskManagement\\Models\\project.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T18:45:58.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T18:45:58.466Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "TaskController.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Controllers\\TaskController.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Controllers\\TaskController.cs",
@@ -162,12 +196,11 @@
               "RelativeToolTip": "TaskManagement\\Controllers\\TaskController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T19:29:57.804Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T19:29:57.804Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "IProjectService.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Services\\IProjectService.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Services\\IProjectService.cs",
@@ -175,12 +208,11 @@
               "RelativeToolTip": "TaskManagement\\Services\\IProjectService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T19:54:38.6Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T19:54:38.6Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "ProjectController.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Controllers\\ProjectController.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Controllers\\ProjectController.cs",
@@ -188,25 +220,23 @@
               "RelativeToolTip": "TaskManagement\\Controllers\\ProjectController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T19:29:40.161Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T19:29:40.161Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "TaskManagement",
+              "DocumentIndex": 12,
+              "Title": "TaskManagement.csproj",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\TaskManagement.csproj",
               "RelativeDocumentMoniker": "TaskManagement\\TaskManagement.csproj",
               "ToolTip": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\TaskManagement.csproj",
               "RelativeToolTip": "TaskManagement\\TaskManagement.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-11-27T19:13:52.193Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T19:13:52.193Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "TaskPriority.cs",
               "DocumentMoniker": "C:\\Users\\prati\\OneDrive\\Documents\\Task\\TaskManagement\\TaskManagement\\Models\\Enums\\TaskPriority.cs",
               "RelativeDocumentMoniker": "TaskManagement\\Models\\Enums\\TaskPriority.cs",
@@ -214,8 +244,7 @@
               "RelativeToolTip": "TaskManagement\\Models\\Enums\\TaskPriority.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T18:49:47.141Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-27T18:49:47.141Z"
             }
           ]
         }

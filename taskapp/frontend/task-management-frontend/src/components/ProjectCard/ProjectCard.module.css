@@ -1,0 +1,27 @@
+.projectCard {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+  }
+  
+  .projectName {
+    font-size: 18px;
+    font-weight: 700;
+    color: #171a1f;
+  }
+  
+  .projectDescription,
+  .projectLead {
+    font-size: 14px;
+    color: #565e6d;
+    margin: 5px 0;
+  }
+  
+  .projectProgress {
+    font-size: 14px;
+    color: #171a1f;
+    font-weight: 700;
+  }
+  
