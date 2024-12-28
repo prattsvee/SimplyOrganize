@@ -1,11 +1,1 @@
-# Ignore appsettings.json and any other files with secrets
-**/appsettings.json
-**/appsettings.*.json
-
-# Ignore environment variable files
-.env
-
-# Add other potentially sensitive file types as needed
-*.key
-*.pem
-*.crt
+.vs/ 
