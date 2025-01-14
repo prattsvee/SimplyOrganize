@@ -1,0 +1,7 @@
+.board {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background: white;
+  }
+  

@@ -1,0 +1,17 @@
+.dashboard {
+    padding: 20px;
+  }
+  
+  .heading {
+    font-size: 24px;
+    font-weight: 700;
+    color: #171a1f;
+    margin-bottom: 20px;
+  }
+  
+  .projectList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
