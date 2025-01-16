@@ -52,6 +52,52 @@ Simply Organize is a comprehensive task management solution built with a microse
 
 ## Architecture
 
+graph TD
+    subgraph "Frontend Layer"
+        UI[React + Vite UI]
+        SignalRC[SignalR Client]
+    end
+
+    subgraph "API Gateway"
+        Gateway[API Gateway]
+    end
+
+    subgraph "Task Management Service"
+        TaskAPI[Task API]
+        ProjectAPI[Project API]
+        SignalRS[SignalR Server]
+        TaskService[Task Service]
+        ProjectService[Project Service]
+        EF[Entity Framework Core]
+    end
+
+    subgraph "Auth Service"
+        AuthAPI[Auth API]
+        UserService[User Service]
+        JWTService[JWT Service]
+    end
+
+    subgraph "Databases"
+        PostgreSQL[(PostgreSQL)]
+        UserDB[(User DB)]
+    end
+
+    UI --> Gateway
+    SignalRC --> SignalRS
+    Gateway --> TaskAPI
+    Gateway --> AuthAPI
+    Gateway --> ProjectAPI
+    
+    TaskAPI --> TaskService
+    ProjectAPI --> ProjectService
+    AuthAPI --> UserService
+    AuthAPI --> JWTService
+    
+    TaskService --> EF
+    ProjectService --> EF
+    EF --> PostgreSQL
+    UserService --> UserDB
+
 ```
 ├── Frontend (React + Vite)
 │   ├── Components
