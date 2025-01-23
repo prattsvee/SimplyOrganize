@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TaskItem } from "../models/task";
-import api from "../services/api";
+import api, { taskApi } from "../services/api";
 import "./TaskDetails.css";
 
 const TaskDetails: React.FC = () => {
@@ -13,7 +13,7 @@ const TaskDetails: React.FC = () => {
     const fetchTask = async () => {
       try {
         if (taskId) {
-          const response = await api.get(`/api/Task/${taskId}`);
+          const response = await taskApi.get(`/api/Task/${taskId}`);
           setTask(response.data);
         }
       } catch (error) {

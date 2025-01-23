@@ -9,7 +9,6 @@ using TaskManagement.Models;
 using TaskManagement.DTOs;
 using TaskManagement.Data;
 using TaskManagement.Hubs;
-using TaskManagement.Helpers;
 
 namespace TaskManagement.Services
 {
@@ -33,155 +32,192 @@ namespace TaskManagement.Services
         {
             try
             {
+                _logger.LogInformation("Fetching tasks for project {ProjectId}", projectId);
+
                 var tasks = await _context.TaskItems
                     .Where(t => t.ProjectId == projectId)
-                    .Select(t => new TaskDetailsDto
-                    {
-                        Id = t.Id,
-                        Title = t.Title,
-                        ShortDescription = t.ShortDescription,
-                        LongDescription = t.LongDescription,
-                        Status = t.Status.ToString(),
-                        Priority = t.Priority.ToString(),
-                        Type = t.Type.ToString(),
-                        CreatedAt = t.CreatedAt,
-                        UpdatedAt = t.UpdatedAt,
-                        DueDate = t.DueDate,
-                        AssigneeId = t.AssigneeId,
-                        EstimatedHours = t.EstimatedHours,
-                        LoggedHours = t.LoggedHours,
-                        RemainingHours = t.RemainingHours,
-                        ProjectId = t.ProjectId,
-                        Labels = t.Labels, 
-                        Comments = t.Comments.Select(c => new TaskCommentDto
-                        {
-                            Id = c.Id,
-                            Content = c.Content,
-                            AuthorId = c.AuthorId,
-                            CreatedAt = c.CreatedAt
-                        }).ToList(),
-                        Attachments = t.Attachments.Select(a => new TaskAttachmentDto
-                        {
-                            Id = a.Id,
-                            FileName = a.FileName,
-                            ContentType = a.ContentType,
-                            FileSize = a.FileSize,
-                            UploadedAt = a.UploadedAt
-                        }).ToList()
-                    })
+                    .Include(t => t.Comments)
+                    .Include(t => t.Attachments)
+                    .Select(t => MapToTaskDetailsDto(t))
                     .ToListAsync();
 
                 return tasks;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error fetching tasks for project {ProjectId}: {Message}", projectId, ex.Message);
+                _logger.LogError(ex, "Error fetching tasks for project {ProjectId}", projectId);
                 throw;
             }
         }
+
         public async Task<TaskDetailsDto?> GetTaskByIdAsync(int id)
         {
-            var task = await _context.TaskItems
-                .Include(t => t.Comments)
-                .Include(t => t.Attachments)
-                .FirstOrDefaultAsync(t => t.Id == id);
+            try
+            {
+                var task = await _context.TaskItems
+                    .Include(t => t.Comments)
+                    .Include(t => t.Attachments)
+                    .FirstOrDefaultAsync(t => t.Id == id);
 
-            return task == null ? null : ModelMapper.ToTaskDetailsDto(task);
+                return task == null ? null : MapToTaskDetailsDto(task);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching task {TaskId}", id);
+                throw;
+            }
         }
 
-        public async Task<TaskDetailsDto> CreateTaskAsync(CreateTaskDto taskDto, string creatorId)
+        public async Task<TaskDetailsDto> CreateTaskAsync(CreateTaskDto createTaskDto, string creatorId)
         {
-            var task = new TaskItem
+            try
             {
-                Title = taskDto.Title,
-                ShortDescription = taskDto.ShortDescription,
-                LongDescription = taskDto.LongDescription,
-                Status = TaskItemStatus.ToDo,
-                Priority = Enum.Parse<TaskPriority>(taskDto.Priority),
-                Type = Enum.Parse<TaskType>(taskDto.Type),
-                AssigneeId = taskDto.AssigneeId,
-                ReporterId = creatorId,
-                EstimatedHours = taskDto.EstimatedHours,
-                ProjectId = taskDto.ProjectId,
-                CreatedAt = DateTime.UtcNow,
-                Labels = taskDto.Labels ?? Array.Empty<string>()  // Just direct assignment now
-            };
+                // Validate project exists
+                var projectExists = await _context.Projects
+                    .AnyAsync(p => p.Id == createTaskDto.ProjectId);
 
-            _context.TaskItems.Add(task);
-            await _context.SaveChangesAsync();
+                if (!projectExists)
+                {
+                    throw new KeyNotFoundException($"Project {createTaskDto.ProjectId} not found");
+                }
 
-            var createdTask = ModelMapper.ToTaskDetailsDto(task);
-            await _hubContext.Clients.All.SendAsync("TaskCreated", createdTask);
+                var task = new TaskItem
+                {
+                    Title = createTaskDto.Title.Trim(),
+                    ShortDescription = createTaskDto.ShortDescription.Trim(),
+                    LongDescription = createTaskDto.LongDescription.Trim(),
+                    Status = TaskItemStatus.ToDo,
+                    Priority = Enum.Parse<TaskPriority>(createTaskDto.Priority),
+                    Type = Enum.Parse<TaskType>(createTaskDto.Type),
+                    AssigneeId = createTaskDto.AssigneeId,
+                    ReporterId = creatorId,
+                    EstimatedHours = createTaskDto.EstimatedHours,
+                    ProjectId = createTaskDto.ProjectId,
+                    CreatedAt = DateTime.UtcNow,
+                    Labels = createTaskDto.Labels ?? Array.Empty<string>()
+                };
 
-            return createdTask;
+                using var transaction = await _context.Database.BeginTransactionAsync();
+                try
+                {
+                    _context.TaskItems.Add(task);
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+
+                    var resultDto = MapToTaskDetailsDto(task);
+                    await _hubContext.Clients.All.SendAsync("TaskCreated", resultDto);
+                    return resultDto;
+                }
+                catch
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating task: {Message}", ex.Message);
+                throw;
+            }
         }
 
         public async Task<TaskDetailsDto> UpdateTaskAsync(int id, UpdateTaskDto taskDto)
         {
             var task = await GetTaskOrThrowAsync(id);
 
-            if (taskDto.Title != null)
-                task.Title = taskDto.Title;
-            if (taskDto.ShortDescription != null)
-                task.ShortDescription = taskDto.ShortDescription;
-            if (taskDto.LongDescription != null)
-                task.LongDescription = taskDto.LongDescription;
-            if (taskDto.Status != null)
-                task.Status = Enum.Parse<TaskItemStatus>(taskDto.Status);
-            if (taskDto.Priority != null)
-                task.Priority = Enum.Parse<TaskPriority>(taskDto.Priority);
-            if (taskDto.Type != null)
-                task.Type = Enum.Parse<TaskType>(taskDto.Type);
-            if (taskDto.AssigneeId != null)
-                task.AssigneeId = taskDto.AssigneeId;
-            if (taskDto.EstimatedHours.HasValue)
-                task.EstimatedHours = taskDto.EstimatedHours.Value;
-            if (taskDto.Labels != null)
-                task.Labels = taskDto.Labels.ToArray();
-            if (taskDto.DueDate.HasValue)
-                task.DueDate = taskDto.DueDate;
+            try
+            {
+                if (taskDto.Title != null)
+                    task.Title = taskDto.Title.Trim();
+                if (taskDto.ShortDescription != null)
+                    task.ShortDescription = taskDto.ShortDescription.Trim();
+                if (taskDto.LongDescription != null)
+                    task.LongDescription = taskDto.LongDescription.Trim();
+                if (taskDto.Status != null)
+                    task.Status = Enum.Parse<TaskItemStatus>(taskDto.Status);
+                if (taskDto.Priority != null)
+                    task.Priority = Enum.Parse<TaskPriority>(taskDto.Priority);
+                if (taskDto.Type != null)
+                    task.Type = Enum.Parse<TaskType>(taskDto.Type);
+                if (taskDto.AssigneeId != null)
+                    task.AssigneeId = taskDto.AssigneeId;
+                if (taskDto.EstimatedHours.HasValue)
+                    task.EstimatedHours = taskDto.EstimatedHours.Value;
+                if (taskDto.Labels != null)
+                    task.Labels = taskDto.Labels;
+                if (taskDto.DueDate.HasValue)
+                    task.DueDate = taskDto.DueDate;
 
-            task.UpdatedAt = DateTime.UtcNow;
+                task.UpdatedAt = DateTime.UtcNow;
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            var updatedTask = ModelMapper.ToTaskDetailsDto(task);
-            await _hubContext.Clients.All.SendAsync("TaskUpdated", updatedTask);
+                var updatedTaskDto = MapToTaskDetailsDto(task);
+                await _hubContext.Clients.All.SendAsync("TaskUpdated", updatedTaskDto);
 
-            return updatedTask;
+                return updatedTaskDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating task {TaskId}", id);
+                throw;
+            }
         }
 
         public async Task<bool> UpdateTaskStatusAsync(int id, TaskItemStatus status)
         {
-            var task = await GetTaskOrThrowAsync(id);
-            task.Status = status;
-            task.UpdatedAt = DateTime.UtcNow;
+            try
+            {
+                var task = await GetTaskOrThrowAsync(id);
+                task.Status = status;
+                task.UpdatedAt = DateTime.UtcNow;
 
-            await _context.SaveChangesAsync();
-            await _hubContext.Clients.All.SendAsync("TaskStatusUpdated", new { TaskId = id, Status = status.ToString() });
+                await _context.SaveChangesAsync();
+                await _hubContext.Clients.All.SendAsync("TaskStatusUpdated", new { TaskId = id, Status = status.ToString() });
 
-            return true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating status for task {TaskId}", id);
+                throw;
+            }
         }
 
         public async Task<TaskCommentDto> AddCommentAsync(int taskId, string content, string userId)
         {
-            var task = await GetTaskOrThrowAsync(taskId);
-
-            var comment = new TaskComment
+            try
             {
-                Content = content,
-                AuthorId = userId,
-                TaskItemId = taskId,
-                CreatedAt = DateTime.UtcNow
-            };
+                var task = await GetTaskOrThrowAsync(taskId);
 
-            _context.TaskComments.Add(comment);
-            await _context.SaveChangesAsync();
+                var comment = new TaskComment
+                {
+                    Content = content.Trim(),
+                    AuthorId = userId,
+                    TaskItemId = taskId,
+                    CreatedAt = DateTime.UtcNow
+                };
 
-            var commentDto = ModelMapper.ToTaskCommentDto(comment);
-            await _hubContext.Clients.All.SendAsync("TaskCommentAdded", commentDto);
+                _context.TaskComments.Add(comment);
+                await _context.SaveChangesAsync();
 
-            return commentDto;
+                var commentDto = new TaskCommentDto
+                {
+                    Id = comment.Id,
+                    Content = comment.Content,
+                    AuthorId = comment.AuthorId,
+                    CreatedAt = comment.CreatedAt
+                };
+
+                await _hubContext.Clients.All.SendAsync("TaskCommentAdded", commentDto);
+
+                return commentDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error adding comment to task {TaskId}", taskId);
+                throw;
+            }
         }
 
         public async Task<TaskAttachmentDto> AddAttachmentAsync(
@@ -192,75 +228,115 @@ namespace TaskManagement.Services
             long fileSize,
             string userId)
         {
-            var task = await GetTaskOrThrowAsync(taskId);
-
-            var attachment = new TaskAttachment
+            try
             {
-                FileName = fileName,
-                FilePath = filePath,
-                ContentType = contentType,
-                FileSize = fileSize,
-                UploadedById = userId,
-                TaskItemId = taskId,
-                UploadedAt = DateTime.UtcNow
-            };
+                var task = await GetTaskOrThrowAsync(taskId);
 
-            _context.TaskAttachments.Add(attachment);
-            await _context.SaveChangesAsync();
+                var attachment = new TaskAttachment
+                {
+                    FileName = fileName,
+                    FilePath = filePath,
+                    ContentType = contentType,
+                    FileSize = fileSize,
+                    UploadedById = userId,
+                    TaskItemId = taskId,
+                    UploadedAt = DateTime.UtcNow
+                };
 
-            var attachmentDto = ModelMapper.ToTaskAttachmentDto(attachment);
-            await _hubContext.Clients.All.SendAsync("TaskAttachmentAdded", attachmentDto);
+                _context.TaskAttachments.Add(attachment);
+                await _context.SaveChangesAsync();
 
-            return attachmentDto;
+                var attachmentDto = new TaskAttachmentDto
+                {
+                    Id = attachment.Id,
+                    FileName = attachment.FileName,
+                    ContentType = attachment.ContentType,
+                    FileSize = attachment.FileSize,
+                    UploadedAt = attachment.UploadedAt
+                };
+
+                await _hubContext.Clients.All.SendAsync("TaskAttachmentAdded", attachmentDto);
+
+                return attachmentDto;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error adding attachment to task {TaskId}", taskId);
+                throw;
+            }
         }
 
         public async Task DeleteTaskAsync(int id)
         {
-            var task = await GetTaskOrThrowAsync(id);
-            _context.TaskItems.Remove(task);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var task = await GetTaskOrThrowAsync(id);
+                _context.TaskItems.Remove(task);
+                await _context.SaveChangesAsync();
 
-            await _hubContext.Clients.All.SendAsync("TaskDeleted", id);
+                await _hubContext.Clients.All.SendAsync("TaskDeleted", id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting task {TaskId}", id);
+                throw;
+            }
         }
 
         public async Task<bool> DeleteCommentAsync(int taskId, int commentId)
         {
-            var comment = await _context.TaskComments
-                .FirstOrDefaultAsync(c => c.Id == commentId && c.TaskItemId == taskId);
+            try
+            {
+                var comment = await _context.TaskComments
+                    .FirstOrDefaultAsync(c => c.Id == commentId && c.TaskItemId == taskId);
 
-            if (comment == null) return false;
+                if (comment == null) return false;
 
-            _context.TaskComments.Remove(comment);
-            await _context.SaveChangesAsync();
+                _context.TaskComments.Remove(comment);
+                await _context.SaveChangesAsync();
 
-            await _hubContext.Clients.All.SendAsync("TaskCommentDeleted", new { TaskId = taskId, CommentId = commentId });
-            return true;
+                await _hubContext.Clients.All.SendAsync("TaskCommentDeleted", new { TaskId = taskId, CommentId = commentId });
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting comment {CommentId} from task {TaskId}", commentId, taskId);
+                throw;
+            }
         }
 
         public async Task<bool> DeleteAttachmentAsync(int taskId, int attachmentId)
         {
-            var attachment = await _context.TaskAttachments
-                .FirstOrDefaultAsync(a => a.Id == attachmentId && a.TaskItemId == taskId);
-
-            if (attachment == null) return false;
-
             try
             {
-                if (File.Exists(attachment.FilePath))
+                var attachment = await _context.TaskAttachments
+                    .FirstOrDefaultAsync(a => a.Id == attachmentId && a.TaskItemId == taskId);
+
+                if (attachment == null) return false;
+
+                try
                 {
-                    File.Delete(attachment.FilePath);
+                    if (File.Exists(attachment.FilePath))
+                    {
+                        File.Delete(attachment.FilePath);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error deleting file for attachment {AttachmentId}", attachmentId);
+                }
+
+                _context.TaskAttachments.Remove(attachment);
+                await _context.SaveChangesAsync();
+
+                await _hubContext.Clients.All.SendAsync("TaskAttachmentDeleted", new { TaskId = taskId, AttachmentId = attachmentId });
+                return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error deleting file for attachment {AttachmentId}", attachmentId);
+                _logger.LogError(ex, "Error deleting attachment {AttachmentId} from task {TaskId}", attachmentId, taskId);
+                throw;
             }
-
-            _context.TaskAttachments.Remove(attachment);
-            await _context.SaveChangesAsync();
-
-            await _hubContext.Clients.All.SendAsync("TaskAttachmentDeleted", new { TaskId = taskId, AttachmentId = attachmentId });
-            return true;
         }
 
         private async Task<TaskItem> GetTaskOrThrowAsync(int taskId)
@@ -278,15 +354,42 @@ namespace TaskManagement.Services
             return task;
         }
 
-        private async Task ValidateTaskProjectAsync(int taskId, int projectId)
+        private static TaskDetailsDto MapToTaskDetailsDto(TaskItem task)
         {
-            var belongs = await _context.TaskItems
-                .AnyAsync(t => t.Id == taskId && t.ProjectId == projectId);
-
-            if (!belongs)
+            return new TaskDetailsDto
             {
-                throw new InvalidOperationException("Task does not belong to the specified project");
-            }
+                Id = task.Id,
+                Title = task.Title,
+                ShortDescription = task.ShortDescription,
+                LongDescription = task.LongDescription,
+                Status = task.Status.ToString(),
+                Priority = task.Priority.ToString(),
+                Type = task.Type.ToString(),
+                CreatedAt = task.CreatedAt,
+                UpdatedAt = task.UpdatedAt,
+                DueDate = task.DueDate,
+                AssigneeId = task.AssigneeId,
+                EstimatedHours = task.EstimatedHours,
+                LoggedHours = task.LoggedHours,
+                RemainingHours = task.RemainingHours,
+                ProjectId = task.ProjectId,
+                Labels = task.Labels,
+                Comments = task.Comments.Select(c => new TaskCommentDto
+                {
+                    Id = c.Id,
+                    Content = c.Content,
+                    AuthorId = c.AuthorId,
+                    CreatedAt = c.CreatedAt
+                }).ToList(),
+                Attachments = task.Attachments.Select(a => new TaskAttachmentDto
+                {
+                    Id = a.Id,
+                    FileName = a.FileName,
+                    ContentType = a.ContentType,
+                    FileSize = a.FileSize,
+                    UploadedAt = a.UploadedAt
+                }).ToList()
+            };
         }
     }
 }

@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
 import { X, Clock, User, Tag, AlertCircle, MessageSquare } from 'lucide-react';
-import { TaskItem, UpdateTaskDto, TaskStatus } from '../types/tasks';
-
+import { TaskItem, UpdateTaskDto, TaskStatus, TaskComment } from '../types/tasks';
+import TaskComments from './TaskComments';
+import authService from '../services/authService';
+import taskService from '../services/taskServices';
+// Update the component props
 interface TaskDetailsModalProps {
   task: TaskItem;
   onClose: () => void;
   onUpdate: (taskId: number, updates: UpdateTaskDto) => Promise<void>;
+  onAddComment: (taskId: number, content: string) => Promise<void>;
+  onDeleteComment?: (taskId: number, commentId: number) => Promise<void>;
 }
 
 const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
   task,
   onClose,
-  onUpdate
+  onUpdate,
+  onAddComment
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState<TaskItem>(task);
   const [comment, setComment] = useState('');
+  const currentUser = authService.getCurrentUser();
 
   const handleSave = async () => {
     try {
@@ -38,10 +45,29 @@ const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
     }
   };
 
+  const handleCommentSubmit = async () => {
+    if (!comment.trim()) return;
+    
+    
+  
+    try {
+      // Send just the string content
+      await onAddComment(task.id, comment.trim());
+      setComment(''); // Clear input
+      
+      // Refresh task details to get new comment
+      const updatedTask = await taskService.getTaskById(task.id);
+      if (updatedTask) {
+        onUpdate(task.id, updatedTask);
+      }
+    } catch (error) {
+      console.error('Failed to add comment:', error);
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-hidden">
-        {/* Header content remains the same */}
         <div className="flex justify-between items-center p-4 border-b">
           <div className="flex items-center gap-3">
             <span className="text-sm text-gray-500">{`${task.type}-${task.id}`}</span>
@@ -101,7 +127,7 @@ const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
                 />
                 <button
                   className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                  onClick={() => {/* Handle comment submission */}}
+                  onClick={handleCommentSubmit}
                 >
                   Comment
                 </button>
@@ -120,12 +146,14 @@ const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({
                   className="px-2 py-1 border rounded"
                   disabled={!isEditing}
                 >
-                  
+                  <option value="Backlog">Backlog</option>
+                  <option value="ToDo">To Do</option>
+                  <option value="InProgress">In Progress</option>
+                  <option value="Review">Review</option>
+                  <option value="Testing">Testing</option>
+                  <option value="Done">Done</option>
                 </select>
               </div>
-
-              {/* Other fields like Priority, Type, etc. */}
-              {/* ... */}
             </div>
 
             {/* Labels Section */}

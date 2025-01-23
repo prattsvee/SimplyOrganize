@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+// ProjectDetails.tsx
+import taskService from "../services/taskServices";  // Fixed import
 import TaskCard from "../components/TaskCard/TaskCard";
-import { getTasksByProjectId } from "../services/taskServices";
+import {getTasksByProjectId} from "../services/taskServices";
 import { TaskItem } from "../models/task";
 import "./ProjectDetails.css";
 

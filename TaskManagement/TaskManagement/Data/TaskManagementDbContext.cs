@@ -51,7 +51,7 @@ namespace TaskManagement.Data
             // Configure Labels as JSON array
             modelBuilder.Entity<TaskItem>()
                 .Property(t => t.Labels)
-                .HasColumnType("jsonb");
+                .HasColumnType("text[]");
         }
     }
 }
