@@ -2,7 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import 'react-big-calendar/lib/css/react-big-calendar.css';
 :root {
   --primary-blue: #2563eb;
   --hover-blue: #1d4ed8;
@@ -11,6 +11,13 @@
   --text-secondary: #4b5563;
   --border-color: #e5e7eb;
   --bg-gray: #f3f4f6;
+}
+:root {
+  --calendar-height: calc(100vh - 12rem);
+}
+
+.calendar-container {
+  height: var(--calendar-height);
 }
 
 @layer base {
@@ -35,6 +42,7 @@
   .sidebar-link-inactive {
     @apply text-gray-600 hover:bg-gray-50;
   }
+
 
   .input-search {
     @apply pl-10 pr-4 py-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
